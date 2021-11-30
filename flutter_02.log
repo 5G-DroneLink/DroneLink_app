@@ -1,0 +1,54 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run
+
+## exception
+
+SocketException: SocketException: OS Error: Success, errno = 0, port = 0
+
+```
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel stable, 2.5.3, on Garuda Linux 5.14.16-zen1-1-zen, locale es_ES.UTF-8)
+    • Flutter version 2.5.3 at /opt/flutter
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision 18116933e7 (hace 4 semanas), 2021-10-15 10:46:35 -0700
+    • Engine revision d3ea636dc5
+    • Dart version 2.14.4
+
+[!] Android toolchain - develop for Android devices (Android SDK version 31.0.0)
+    • Android SDK at /home/nel/Android/Sdk
+    • Platform android-31, build-tools 31.0.0
+    • Java binary at: /opt/android-studio/jre/bin/java
+    • Java version OpenJDK Runtime Environment (build 11.0.10+0-b96-7249189)
+    ! Some Android licenses not accepted.  To resolve this, run: flutter doctor --android-licenses
+
+[✗] Chrome - develop for the web (Cannot find Chrome executable at google-chrome)
+    ! Cannot find Chrome. Try setting CHROME_EXECUTABLE to a Chrome executable.
+
+[✓] Linux toolchain - develop for Linux desktop
+    • clang version 12.0.1
+    • cmake version 3.21.4
+    • ninja version 1.10.2
+    • pkg-config version 1.8.0
+
+[✓] Android Studio (version 2020.3)
+    • Android Studio at /opt/android-studio
+    • Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    • Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    • Java version OpenJDK Runtime Environment (build 11.0.10+0-b96-7249189)
+
+[✓] Connected device (2 available)
+    • Mi 9T Pro (mobile) • 413f408b • android-arm64 • Android 11 (API 30)
+    • Linux (desktop)    • linux    • linux-x64     • Garuda Linux 5.14.16-zen1-1-zen
+
+! Doctor found issues in 2 categories.
+```
