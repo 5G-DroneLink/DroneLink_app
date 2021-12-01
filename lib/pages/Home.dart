@@ -29,14 +29,21 @@ class _HomeState extends State<Home> {
   late Address address;
   late IO.Socket socket;
   late IO.Socket telemetrySocket;
+  static const String mqttServerIP = "172.16.5.44";
   Telemetry telemetry = Telemetry(
-      pitch: 0, roll: 0, speed: 0, altitude: 0, longitude: 0, latitude: 0);
+      pitch: 0,
+      roll: 0,
+      speed: 0,
+      altitude: 0,
+      longitude: 0,
+      latitude: 0,
+      yaw: 0);
   bool _isConnectedTelemetry = false;
   int prevThr = 0;
   int prevYaw = 0;
   int prevPth = 0;
   int prevRoll = 0;
-  static const String videoUri = "rtsp://10.100.1.21:8554/unicast";
+  static const String videoUri = "rtsp://172.16.5.44:8554/unicast";
   bool _isOverlayActive = true;
   final VlcPlayerController _vlcViewController = VlcPlayerController.network(
     videoUri,
@@ -57,7 +64,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     _mqttState = Provider.of<MQTTState>(context);
-    _updateTelemetry(_mqttState.getReceivedMsg);
+    //_updateTelemetry(_mqttState.getReceivedMsg);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -193,7 +200,7 @@ class _HomeState extends State<Home> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: MediaQuery.of(context).size.height * 0.8,
-                      child: _telemetry(context, _mqttState.getReceivedMsg),
+                      //child: _telemetry(context, _mqttState.getReceivedMsg),
                     ));
               });
         });
@@ -263,7 +270,7 @@ class _HomeState extends State<Home> {
 
   void _initMQTT() {
     _client =
-        MQTTClient("10.100.1.21", "APP", 'Dronelink/telemetry', _mqttState);
+        MQTTClient(mqttServerIP, "APP", 'Dronelink/telemetry', _mqttState);
     _client.init();
     _client.connect();
   }
@@ -314,32 +321,38 @@ class _HomeState extends State<Home> {
 
   _telemetry(BuildContext context, String msg) {
     if (msg == "") {
+      //incompleto
       return SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.8,
           child: Center(
-              child: Container(child: Text("Telemetría no disponible"))));
-    }
-    _updateTelemetry(msg);
-    return Dialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.8,
-          height: MediaQuery.of(context).size.height * 0.8,
-          child: Center(
-              child: Container(
-            child: Column(
-              children: [
-                Text("Pitch: " + telemetry.pitch.toString()),
-                Text("Roll " + telemetry.roll.toString()),
-                Text("Altitude" + telemetry.altitude.toString()),
-                Text("Speed" + telemetry.speed.toString()),
-                Text("Latitude" + telemetry.latitude.toString()),
-                Text("Longitude: " + telemetry.longitude.toString())
-              ],
-            ),
-          )),
-        ));
+              child: Column(
+            children: [
+              Container(child: Text("Telemetría no disponible")),
+              const Center(child: CircularProgressIndicator()),
+            ],
+          )));
+    } else
+      //  _updateTelemetry(msg);
+      return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.8,
+            child: Center(
+                child: Container(
+              child: Column(
+                children: [
+                  Text("Pitch: " + telemetry.pitch.toString()),
+                  Text("Roll " + telemetry.roll.toString()),
+                  Text("Altitude" + telemetry.altitude.toString()),
+                  Text("Speed" + telemetry.speed.toString()),
+                  Text("Latitude" + telemetry.latitude.toString()),
+                  Text("Longitude: " + telemetry.longitude.toString())
+                ],
+              ),
+            )),
+          ));
   }
 }

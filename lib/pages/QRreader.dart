@@ -15,17 +15,17 @@ class _QRreaderPageState extends State<QRreaderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const QRViewExample(),
+      body: const QRreader(),
     );
   }
 }
 
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
-  State<StatefulWidget> createState() => _QRViewExampleState();
+class QRreader extends StatefulWidget {
+  const QRreader({Key? key}) : super(key: key);
+  State<StatefulWidget> createState() => _QRreaderState();
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRreaderState extends State<QRreader> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
